@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
     path('', include('apps.news.urls')),
+    path('accounts/', include('apps.accounts.urls')),
      
 ]
 
@@ -33,3 +34,6 @@ if settings.DEBUG:
 
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+# <!-- <form action="{% url 'login' %}" method="POST"> -->
