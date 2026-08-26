@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import get_user_model, authenticate, login
+from django.contrib.auth import get_user_model, authenticate, login, logout
 from apps.accounts.forms import LoginForm
 
 
@@ -15,7 +16,7 @@ class LoginView(TemplateView):
     def get(self, request, *args, **kwargs):
         # 1. Proactively redirect logged-in users away
         if request.user.is_authenticated:
-            return redirect('dashboard')
+            return redirect('news:home')
             
         # 2. Instantiate an empty form for the initial GET request
         context = self.get_context_data(**kwargs)
@@ -36,11 +37,32 @@ class LoginView(TemplateView):
             
             if user is not None:
                 login(request, user)  # Creates the session and cookie
-                return redirect('dashboard')
+                messages.success(
+                request,
+                "Muvaffaqiyatli login qilindi!"
+            )
+                return redirect('news:home')
             else:
+                messages.error(
+                    request,
+                    "Username yoki parol noto‘g‘ri!"
+                )
                 form.add_error(None, "Invalid username or password.")
                 
         # 4. If form is invalid or authentication failed, re-render with errors
         context = self.get_context_data(**kwargs)
         context['form'] = form
         return self.render_to_response(context)
+    
+
+class LogoutView(TemplateView):
+    # template_name = 'accounts/logout.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            logout(request)
+            messages.success(
+            request,
+            "Muvaffaqiyatli logout qilindi!"
+            )
+        return redirect('news:home')

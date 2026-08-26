@@ -50,8 +50,8 @@
                             <div class="row d-flex justify-content-between align-items-center">
                                 <div class="header-info-left">
                                     <ul>     
-                                        <li><img src="assets/img/icon/header_icon1.png" alt="">34ºc, Sunny </li>
-                                        <li><img src="assets/img/icon/header_icon1.png" alt="">Tuesday, 18th June, 2019</li>
+                                        <li><img src="{% static 'assets/img/icon/header_icon1.png' %}" alt="">34ºc, Sunny </li>
+                                        <li><img src="{% static 'assets/img/icon/header_icon1.png' %}" alt="">Tuesday, 18th June, 2019</li>
                                     </ul>
                                 </div>
                                 <div class="header-info-right">
@@ -91,37 +91,253 @@
                                         <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
                                     </div>
                                 <!-- Main-menu -->
-                                <div class="main-menu d-none d-md-block">
-                                    <nav>                  
-                                        <ul id="navigation">    
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="categori.html">Category</a></li>
-                                            <li><a href="about.html">About</a></li>
-                                            <li><a href="latest_news.html">Latest News</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="#">Pages</a>
-                                                <ul class="submenu">
-                                                    <li><a href="elements.html">Element</a></li>
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="single-blog.html">Blog Details</a></li>
-                                                    <li><a href="details.html">Categori Details</a></li>
+                                <div class="main-menu d-none d-md-block"
+                                    style="display: flex !important; align-items: center;">
+
+                                    <nav>
+                                        <ul id="navigation"
+                                            style="display: flex; align-items: center; margin: 0; padding: 0; gap: 5px;">
+
+                                            <li>
+                                                <a href="index.html"
+                                                style="padding: 10px 14px; border-radius: 8px;">
+                                                    Home
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="categori.html"
+                                                style="padding: 10px 14px; border-radius: 8px;">
+                                                    Category
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="about.html"
+                                                style="padding: 10px 14px; border-radius: 8px;">
+                                                    About
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="latest_news.html"
+                                                style="padding: 10px 14px; border-radius: 8px;">
+                                                    Latest News
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="contact.html"
+                                                style="padding: 10px 14px; border-radius: 8px;">
+                                                    Contact
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="#"
+                                                style="padding: 10px 14px; border-radius: 8px;">
+                                                    Pages
+                                                </a>
+
+                                                <ul class="submenu"
+                                                    style="border-radius: 10px; overflow: hidden;">
+
+                                                    <li>
+                                                        <a href="elements.html">Element</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="blog.html">Blog</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="single-blog.html">Blog Details</a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="details.html">Categori Details</a>
+                                                    </li>
+
                                                 </ul>
                                             </li>
+
                                         </ul>
                                     </nav>
+
+
+                                    {% if user.is_authenticated %}
+
+                                        <!-- User area -->
+                                        <div style="
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 10px;
+                                            margin-left: 20px;
+                                        ">
+
+                                            <!-- Logout -->
+                                            <a href="{% url 'accounts:logout' %}"
+                                            style="
+                                                    display: flex;
+                                                    align-items: center;
+                                                    gap: 6px;
+                                                    color: #222;
+                                                    text-decoration: none;
+                                                    font-size: 14px;
+                                                    font-weight: 500;
+                                                    padding: 8px 10px;
+                                                    border-radius: 8px;
+                                                    white-space: nowrap;
+                                            ">
+
+                                                <i class="fa-solid fa-right-from-bracket"
+                                                style="color: #ff6b35;">
+                                                </i>
+
+                                                Logout
+                                            </a>
+
+
+                                            <!-- Profile image -->
+                                            <a href="profile.html"
+                                            style="
+                                                    display: flex;
+                                                    align-items: center;
+                                                    text-decoration: none;
+                                            ">
+
+                                                {% if request.user.avatar %}
+
+                                                    <img
+                                                        src="{{ request.user.avatar.url }}"
+                                                        alt="Profile"
+                                                        style="
+                                                            width: 42px;
+                                                            height: 42px;
+                                                            border-radius: 50%;
+                                                            object-fit: cover;
+                                                            border: 2px solid #ff6b35;
+                                                            padding: 2px;
+                                                            background: white;
+                                                            display: block;
+                                                        "
+                                                    >
+
+                                                {% else %}
+
+                                                    <i class="fa-solid fa-circle-user"
+                                                    style="
+                                                            font-size: 42px;
+                                                            color: #ff6b35;
+                                                    ">
+                                                    </i>
+
+                                                {% endif %}
+
+                                            </a>
+
+
+                                            <!-- User email -->
+                                            <span style="
+                                                display: flex;
+                                                align-items: center;
+                                                gap: 6px;
+                                                color: #222;
+                                                font-size: 14px;
+                                                font-weight: 500;
+                                                white-space: nowrap;
+                                            ">
+
+                                                <i class="fa-solid fa-user"
+                                                style="color: #ff6b35;">
+                                                </i>
+
+                                                {{ request.user.email }}
+
+                                            </span>
+
+                                        </div>
+
+
+                                    {% else %}
+
+                                        <!-- Sign In -->
+                                        <a href="{% url 'accounts:login' %}"
+                                        style="
+                                                display: flex;
+                                                align-items: center;
+                                                gap: 6px;
+                                                color: #222;
+                                                text-decoration: none;
+                                                margin-left: 20px;
+                                                padding: 9px 12px;
+                                                border-radius: 8px;
+                                                white-space: nowrap;
+                                        ">
+
+                                            <i class="fa-solid fa-right-to-bracket"
+                                            style="color: #ff6b35;">
+                                            </i>
+
+                                            Sign In
+                                        </a>
+
+
+                                        <!-- Sign Up -->
+                                        <a href="register.html"
+                                        style="
+                                                display: flex;
+                                                align-items: center;
+                                                gap: 6px;
+                                                color: #222;
+                                                text-decoration: none;
+                                                margin-left: 5px;
+                                                padding: 9px 12px;
+                                                border-radius: 8px;
+                                                white-space: nowrap;
+                                        ">
+
+                                            <i class="fa-solid fa-user-plus"
+                                            style="color: #ff6b35;">
+                                            </i>
+
+                                            Sign Up
+                                        </a>
+
+                                    {% endif %}
+
+
+
+                                    {% if messages %}
+
+                                        {% for message in messages %}
+
+                                            <div style="
+                                                position: fixed;
+                                                top: 20px;
+                                                right: 20px;
+                                                z-index: 9999;
+                                                padding: 14px 20px;
+                                                border-radius: 10px;
+                                                background: #28a745;
+                                                color: white;
+                                                font-size: 15px;
+                                                font-weight: 500;
+                                                box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+                                            ">
+                                                <i class="fa-solid fa-circle-check"></i>
+                                                {{ message }}
+                                            </div>
+
+                                        {% endfor %}
+
+                                    {% endif %}
+
                                 </div>
-                            </div>             
-                            <div class="col-xl-2 col-lg-2 col-md-4">
-                                <div class="header-right-btn f-right d-none d-lg-block">
-                                    <i class="fas fa-search special-tag"></i>
-                                    <div class="search-box">
-                                        <form action="#">
-                                            <input type="text" placeholder="Search">
-                                            
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+
+
+                                
+
                             <!-- Mobile Menu -->
                             <div class="col-12">
                                 <div class="mobile_menu d-block d-md-none"></div>

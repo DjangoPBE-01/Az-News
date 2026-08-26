@@ -6,7 +6,11 @@ from django.views.generic import TemplateView
 class HomeView(TemplateView):
     template_name = 'index.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['title'] = 'Home'
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        # context['user'] = user
+        context.update({
+            'user': user,
+        })
+        return context
