@@ -6,6 +6,7 @@ from apps.accounts.manager import CustomUserManager
 
 
 class CustomUser(AbstractUser):
+    username = None
     avatar = models.ImageField(upload_to='avatar/', null=True, blank=True, verbose_name='Avatar', help_text='The filed is saved avatar.')
     email = models.EmailField(unique=True, verbose_name='Email', help_text='The filed is saved email.')
     
